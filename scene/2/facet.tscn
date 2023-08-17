@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://tu8h8pg4rd2l"]
+
+[ext_resource type="Script" path="res://scene/2/facet.gd" id="1_iwim4"]
+[ext_resource type="PackedScene" uid="uid://rgtjtuf31pht" path="res://scene/2/icon.tscn" id="2_mvo8g"]
+
+[node name="Facet" type="MarginContainer"]
+custom_minimum_size = Vector2(5, 5)
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_iwim4")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Icon" parent="HBox" instance=ExtResource("2_mvo8g")]
+layout_mode = 2

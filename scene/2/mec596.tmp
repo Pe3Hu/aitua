@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://di3i8vsc5knlf"]
+
+[ext_resource type="FontFile" uid="uid://8erc6oqf1hw7" path="res://asset/font/neuropolitical rg.otf" id="1_8shcw"]
+[ext_resource type="Script" path="res://scene/2/mechanism.gd" id="1_uq4qu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
+
+[node name="Mechanism" type="MarginContainer"]
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_uq4qu")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7paps")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_8shcw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Icons" type="Control" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Weapons" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1

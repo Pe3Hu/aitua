@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://btjuadb2b7bqc"]
+
+[ext_resource type="Script" path="res://scene/2/indicator.gd" id="1_0aekx"]
+[ext_resource type="FontFile" uid="uid://8erc6oqf1hw7" path="res://asset/font/neuropolitical rg.otf" id="1_kue25"]
+[ext_resource type="FontFile" uid="uid://brthmdy0bvgqo" path="res://asset/font/metal lord ot.otf" id="2_nr0cl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
+
+[node name="Indicator" type="MarginContainer"]
+custom_minimum_size = Vector2(5, 5)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_0aekx")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7paps")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_nr0cl")
+step = 1.0
+value = 20.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_kue25")
+horizontal_alignment = 1
+vertical_alignment = 1
