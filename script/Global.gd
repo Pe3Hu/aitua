@@ -5,26 +5,28 @@ var rng = RandomNumberGenerator.new()
 var arr = {}
 var num = {}
 var vec = {}
-var color = {}
 var dict = {}
 var flag = {}
 var node = {}
+var stat = {}
+var color = {}
 var scene = {}
+
 
 
 func _ready() -> void:
 	init_arr()
 	init_num()
 	init_vec()
-	init_color()
 	init_dict()
 	init_node()
+	init_stat()
+	init_color()
 	init_scene()
 
 
 func init_arr() -> void:
 	arr.edge = [1, 2, 3, 4, 5, 6]
-	
 	
 	init_dice_substitutions()
 
@@ -45,15 +47,22 @@ func init_dice_substitutions() -> void:
 			
 		var substitutions = get_all_substitutions(cubes)
 		arr.dice.substitution[l] = {}
+		var sum = 0
 		
 		for substitution in substitutions:
 			substitution.sort()
 			
 			if !arr.dice.substitution[l].has(substitution):
-				arr.dice.substitution[l][substitution] = 0
+				arr.dice.substitution[l][substitution] = {}
+				arr.dice.substitution[l][substitution].repeats = 0
+				arr.dice.substitution[l][substitution].edges = []
+				
+				for index in substitution:
+					var edge = arr.edge[index]
+					arr.dice.substitution[l][substitution].edges.append(edge)
 			
-			arr.dice.substitution[l][substitution] += 1
-		print(arr.dice.substitution[l].keys().size())
+			arr.dice.substitution[l][substitution].repeats += 1
+			sum += 1
 
 
 func init_num() -> void:
@@ -104,10 +113,68 @@ func init_dict() -> void:
 			Vector2( 0,-1)
 		]
 	]
+	
+	dict.substitution = {}
+	dict.substitution["6"] = {}
+	dict.substitution["6"]["2"]= 36
+	dict.substitution["6"]["3"]= 216
+	
+	init_spell()
+
+
+func init_spell() -> void:
+	dict.spell = {}
+	dict.spell.title = {}
+	var path = "res://asset/json/aitua_spell.json"
+	var array = load_data(path)
+	
+	for data in array:
+		dict.spell.title[data.title] = {}
+		dict.spell.title[data.title].condition = {}
+		dict.spell.title[data.title].effect = {}
+		
+		for key in data:
+			var words = key.rsplit(" ")
+			var flag = true
+			
+			for subkey in dict.spell.title[data.title]:
+				if words.has(subkey):
+					flag = false
+					
+					if subkey == "effect":
+						var index = words[2]
+						var str = words[1]
+						
+						if !dict.spell.title[data.title][subkey].has(index):
+							dict.spell.title[data.title][subkey][index] = {}
+							
+						dict.spell.title[data.title][subkey][index][str] = data[key]
+					else:
+						var str = ""
+						
+						for _i in words.size():
+							var word = words[_i]
+							
+							if word != subkey:
+								if str != "":
+									str += " "
+								
+								str += word
+						
+						dict.spell.title[data.title][subkey][str] = data[key]
+			if flag:
+				dict.spell.title[data.title][key] = data[key]
+		
+		dict.spell.title[data.title].erase("title")
 
 
 func init_node() -> void:
 	node.game = get_node("/root/Game")
+
+
+func init_stat() -> void:
+	stat.spell = {}
+	stat.spell.damage = {}
 
 
 func init_scene() -> void:

@@ -124,3 +124,8 @@ func flip_to_value(value_) -> void:
 				pop_up()
 			
 			return
+
+
+func get_current_facet_value() -> int:
+	var facet =  facets.get_child(2)
+	return facet.value
