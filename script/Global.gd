@@ -27,6 +27,7 @@ func _ready() -> void:
 
 func init_arr() -> void:
 	arr.edge = [1, 2, 3, 4, 5, 6]
+	arr.element = ["water", "wind", "fire", "earth"]
 	
 	init_dice_substitutions()
 
@@ -129,43 +130,47 @@ func init_spell() -> void:
 	var array = load_data(path)
 	
 	for data in array:
-		dict.spell.title[data.title] = {}
-		dict.spell.title[data.title].condition = {}
-		dict.spell.title[data.title].effect = {}
-		
-		for key in data:
-			var words = key.rsplit(" ")
-			var flag = true
+		if data != null:
+			dict.spell.title[data.title] = {}
+			dict.spell.title[data.title].condition = {}
+			dict.spell.title[data.title].effect = {}
 			
-			for subkey in dict.spell.title[data.title]:
-				if words.has(subkey):
-					flag = false
-					
-					if subkey == "effect":
-						var index = words[2]
-						var str = words[1]
+			for key in data:
+				var words = key.rsplit(" ")
+				
+				if typeof(data[key]) == TYPE_FLOAT:
+					data[key] = int(data[key])
+				
+				var flag = true
+				
+				for subkey in dict.spell.title[data.title]:
+					if words.has(subkey):
+						flag = false
 						
-						if !dict.spell.title[data.title][subkey].has(index):
-							dict.spell.title[data.title][subkey][index] = {}
-							
-						dict.spell.title[data.title][subkey][index][str] = data[key]
-					else:
-						var str = ""
-						
-						for _i in words.size():
-							var word = words[_i]
-							
-							if word != subkey:
-								if str != "":
-									str += " "
+						match subkey:
+							"effect":
+								var index = words[2]
+								var str = words[1]
 								
-								str += word
+								if !dict.spell.title[data.title][subkey].has(index):
+									dict.spell.title[data.title][subkey][index] = {}
+									
+								dict.spell.title[data.title][subkey][index][str] = data[key]
 						
-						dict.spell.title[data.title][subkey][str] = data[key]
-			if flag:
-				dict.spell.title[data.title][key] = data[key]
-		
-		dict.spell.title[data.title].erase("title")
+							"condition":
+								var str = ""
+								
+								if words[1] == "value":
+									if !dict.spell.title[data.title][subkey].has(words[1]):
+										dict.spell.title[data.title][subkey][words[1]] = {}
+									
+									dict.spell.title[data.title][subkey][words[1]][words[2]] = data[key]
+								else:
+									dict.spell.title[data.title][subkey][words[1]] = data[key]
+				if flag:
+					dict.spell.title[data.title][key] = data[key]
+			
+			dict.spell.title[data.title].erase("title")
 
 
 func init_node() -> void:
@@ -173,14 +178,16 @@ func init_node() -> void:
 
 
 func init_stat() -> void:
-	stat.spell = {}
-	stat.spell.damage = {}
+	stat.element = {}
+	stat.element.damage = {}
 
 
 func init_scene() -> void:
 	#scene.hell = load("res://scene/0/hell.tscn")
 	scene.spellcaster = load("res://scene/1/spellcaster.tscn")
 	scene.spell = load("res://scene/1/spell.tscn")
+	scene.book = load("res://scene/1/book.tscn")
+	scene.page = load("res://scene/1/page.tscn")
 	
 	scene.icon = load("res://scene/2/icon.tscn")
 	scene.dice = load("res://scene/2/dice.tscn")

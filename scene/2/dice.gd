@@ -14,6 +14,7 @@ var counter = 0
 var faces = 6
 var skip = true#false true
 var anchor = null
+var temp = true
 
 
 func init(faces_: int) -> void:
@@ -36,7 +37,7 @@ func _ready() -> void:
 
 func update_size() -> void:
 	var vector = Global.vec.size.facet#Vector2(facets.get_child(0).size)
-	vector.y *= 3
+	vector.y *= 1
 	custom_minimum_size = vector
 
 
@@ -115,10 +116,10 @@ func flip_to_value(value_) -> void:
 	for facet in facets.get_children():
 		if facet.value == value_:
 			var index = facet.get_index()
-			var step = 2 - index
+			var step = 1 - index
 			
 			if step < 0:
-				step = facets.get_child_count() - index + 2
+				step = facets.get_child_count() - index + 1
 			
 			for _j in step:
 				pop_up()
@@ -127,5 +128,10 @@ func flip_to_value(value_) -> void:
 
 
 func get_current_facet_value() -> int:
-	var facet =  facets.get_child(2)
+	var facet =  facets.get_child(1)
 	return facet.value
+
+
+func crush() -> void:
+	get_parent().remove_child(self)
+	queue_free()

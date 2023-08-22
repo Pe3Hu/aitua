@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn8cougch8mgt"]
+
+[ext_resource type="FontFile" uid="uid://8erc6oqf1hw7" path="res://asset/font/neuropolitical rg.otf" id="1_jobq5"]
+[ext_resource type="Script" path="res://scene/1/page.gd" id="1_xsyi0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
+bg_color = Color(0.686275, 0.592157, 0.301961, 1)
+
+[node name="Page" type="MarginContainer"]
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_xsyi0")
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7paps")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_jobq5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Condition" type="Label" parent="VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_jobq5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Effects" type="VBoxContainer" parent="VBox"]
+layout_mode = 2
+alignment = 1
